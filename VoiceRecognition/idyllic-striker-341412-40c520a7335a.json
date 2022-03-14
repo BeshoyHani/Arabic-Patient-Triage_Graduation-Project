@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "idyllic-striker-341412",
+  "private_key_id": "40c520a7335ad37def751cc85a9d43fff424cf4e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCi+cnsU13mf7xS\ntxfW4bhwPb3GIYGddP5skj8a9cTmMGsgGVwMZX3DiegZpYjj7ChuzNNkNWDyHIm2\n087TUoRuxBKLLBTG9CMsbKWabVYtyM8AsolGUspYLonrPVevMaLsSzWWVSQvA4nH\nw0aatYOBkRAWYjXiR4F2i5BBRxd9DYMJS6T0VRMca47Wft7DwN3N3CDGdYW43wn+\n3y1nDA2gEK6/+sfRmy/xHgwCkmYugmOzq0hmOSw6wIlO2OMn7sRwTN7byEd2Hh9W\nrtdoF6xdIhcROoPkKUtuw2Bu2XkAQVWIe9erB4J85L68IDtATWZbWUY/846mWRA2\nl6hzpihdAgMBAAECggEACNcBKZklAvtjON5XA/AG28mxiTVojSSbJ0LwetMhXLX8\nHYfamw6HOYu5o+h7ahd1YvsnrSwLB97d5mWLNqGnbsWiVturfdYgsUhsXBm5nq6h\nccF9Wivj71AI6ZJQdv97fZMfwzl3hrhLqSLxqbMWQLkgVQJ7NzyXLFmqF6xWPRFg\nIn7TvCgM8HhMmwdjOCtpVMU66FcrzHuzC64T7r0tJxRmp8mBORQw/or63QECVDx4\nzqwzzY/xKTO84DEu3Wsi8nxFvEG4M277vH50HN6muZ2a/NOS6OfZMzIllTMFjx8b\n/oEndUlj+Q74RH6UEyqQwCLjI/ZlvxeG6EEqoKBG6QKBgQDS0k7+ly1auiqr7KJu\n8bnwGmEK3rMIcaycvCYtz4Mn9AhqOJv9NhpnB4zWXniqTOGS+NVMXB0O2Kwy9UQK\nr2z4kImDcrcLePEaSxXhLrsuC20CXMjMZOoudYR/lQxIRLmfk1QKVF4yNUKpe5yX\nXoqL853jCiFVoLnWBKZgCCNgOQKBgQDF5qfMTLcCAEIRt++u66xnaeAvBBMQytxm\nt0EQrEkd04eFhykjeDQHNSZzvP3JHVyvTcjTRvbGuBebwr0wSY1h9x3ZATkZMa40\namlMHcKR2jVe2b6F7uzc6XL2SWa6geeqB955Y8d83JEnWUNOfSmJUXytanZeb2mK\nCnjl6qUBRQKBgG4Tp3FhKCpGKD+qh8mb53UJoP/W9e4DxJf12Y1z20yCK96ifjhB\nBpojJBNOMnzhNarSyDRdqEJ3ObpFu+hEXoaOmW6L+C1CUcljySHRj6RkDN/96E5o\npqnpbGxdO5OEZtN+TpQyJxjaHFt4EnQqxfZ7FkZUpMEb8cxgkypzNV1pAoGAM2Uf\nltMlhAOFJQzb1lWmRIUej5dDTE0iyBo3b5kOtAxHWcosSOXivSx0fAJM9noFpBFT\nYms/k4QjvXPppiyz5wlCWyUSKxTX5Qzto7Lm4PIGgkeSTz4pjYWjMYsGftFV1LaO\ndIARQsAVgl6QOEYRD3R2KKNJcmUEx7DIjQ1PJPECgYBaoIWrbuFc0g8v1taEaRK1\n8yVLa/kZUkOOTLUzpYudKN0Np4iVl/YKGEQmiSU7Du92fYI4c+e0KNOsMyjO7aEE\nHrk3sblw2ph+pAyvb31BGKg77TkUAl0lr6BB9sb1DrDpJH4MQqEP4i0LARDqc91t\nXDkF34KZImwYM7jZKpCm3w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "speech@idyllic-striker-341412.iam.gserviceaccount.com",
+  "client_id": "101748181775876387588",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/speech%40idyllic-striker-341412.iam.gserviceaccount.com"
+}
