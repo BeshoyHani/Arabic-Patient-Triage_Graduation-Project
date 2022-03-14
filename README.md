@@ -1,8 +1,8 @@
 # GP
 
-https://www.kaggle.com/kaushil268/disease-prediction-using-machine-learning Dataset With code python
+[Dataset With code python](https://www.kaggle.com/kaushil268/disease-prediction-using-machine-learning)
 
-https://www.geeksforgeeks.org/disease-prediction-using-machine-learning/ Geeks for geeks disease predictions 
+[Geeks for geeks disease predictions](https://www.geeksforgeeks.org/disease-prediction-using-machine-learning/) 
 
-https://github.com/aanchal1308/disease-diagnosis-ML Github Model with disease
+[Github Model with disease](https://github.com/aanchal1308/disease-diagnosis-ML)
 
