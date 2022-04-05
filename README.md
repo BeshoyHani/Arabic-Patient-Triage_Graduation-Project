@@ -6,3 +6,6 @@
 
 [Github Model with disease](https://github.com/aanchal1308/disease-diagnosis-ML)
 
+Chosen Model Code:
+
+[Keras Sequential Model NN] https://www.kaggle.com/code/twaritshah/using-neural-networks-to-predict-disease-100-acc/notebook
