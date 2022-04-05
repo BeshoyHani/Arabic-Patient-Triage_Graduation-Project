@@ -8,4 +8,4 @@
 
 Chosen Model Code:
 
-[Keras Sequential Model NN] https://www.kaggle.com/code/twaritshah/using-neural-networks-to-predict-disease-100-acc/notebook
+[Keras Sequential Model NN](https://www.kaggle.com/code/twaritshah/using-neural-networks-to-predict-disease-100-acc/notebook)
