@@ -1,11 +1,3 @@
-'''
-import pandas as pd
-import csv
-df = pd.read_csv('Training.csv')
-print(df['prognosis'].unique())
-y = df['prognosis'].unique()
-pd.DataFrame(y).to_csv('prognosis.csv')
-'''
 import os
 from tkinter import *
 from PIL import Image, ImageTk
@@ -30,7 +22,8 @@ class Main:
         self.btn_lbl.set("Click to Record")
         Label(textvariable=self.btn_lbl).pack(anchor=CENTER, pady=(100, 20))
 
-        self.sound_btn = Button(self.window, image=self.mic_icon, width=64, height=64, relief=FLAT, command=self.record_audio)
+        self.sound_btn = Button(self.window, image=self.mic_icon, width=64, height=64, relief=FLAT,
+                                command=self.record_audio)
         self.sound_btn["border"] = "0"
         self.sound_btn.pack(anchor=CENTER)
 
@@ -50,8 +43,8 @@ class Main:
             voice_recognizer.adjust_for_ambient_noise(source)
             audio = voice_recognizer.listen(source)
 
-        print(voice_recognizer.recognize_google(audio ,language="ar-EG"))
-        #print(VC.getText(audio))
+        print(voice_recognizer.recognize_google(audio, language="ar-EG"))
+        # print(VC.getText(audio))
 
         # Update Record Button Label
         self.btn_lbl.set("Click to Record")

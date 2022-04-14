@@ -5,11 +5,11 @@ from google.cloud import speech
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'idyllic-striker-341412-40c520a7335a.json'
 speech_client = speech.SpeechClient()
 
+
 # Example 1 & 2. Transcribe Local Media File
 # File Size: < 10mbs, length < 1 minute
 
 def getText(path):
-
     with open(path, "rb") as audio_file:
         content = audio_file.read()
 
@@ -42,4 +42,9 @@ def getText(path):
 
     return text
 
-print(getText('doc.wav'))
+
+import KeyWordsExtraction
+
+txt = getText('doc.wav')
+print(txt)
+print(KeyWordsExtraction.extract_diseases(txt))

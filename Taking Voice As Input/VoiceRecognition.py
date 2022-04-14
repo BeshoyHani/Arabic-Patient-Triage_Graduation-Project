@@ -1,10 +1,10 @@
 import os
 
-import numpy as np
 from google.cloud import speech
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'idyllic-striker-341412-40c520a7335a.json'
 speech_client = speech.SpeechClient()
+
 
 # Example 1 & 2. Transcribe Local Media File
 # File Size: < 10mbs, length < 1 minute
@@ -40,4 +40,4 @@ def getText(content):
 
     return text
 
-#print(getText('doc.wav'))
+# print(getText('doc.wav'))
