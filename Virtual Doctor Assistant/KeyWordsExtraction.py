@@ -4,7 +4,7 @@ import textdistance
 import csv
 import preprocessing
 
-def get_diseases(path):
+def get_all_symptoms(path):
     list = []
     with open(path, 'r', encoding='utf8') as rf:
         reader = csv.reader(rf)
@@ -15,9 +15,10 @@ def get_diseases(path):
                     list.append(row[i])
 
     list = preprocessing.preprocess(list)
+    print(list)
     return list
 
-all_diseases = get_diseases('GP_ArabicDataSet.csv')
+all_diseases = get_all_symptoms('GP_ArabicDataSet.csv')
 
 def getHighestSimilarity(word):
     sim = [(textdistance.Prefix().normalized_similarity(candidate, word)) for candidate in all_diseases]
@@ -25,11 +26,11 @@ def getHighestSimilarity(word):
     return sim[idx] , all_diseases[idx]
 
 def extract_diseases(text):
-    all_diseases = get_diseases('GP_ArabicDataSet.csv')
     list = []
 
+
     words = text.split()
-    words=preprocessing.preprocess(words)
+    words = preprocessing.preprocess(words)
 
     print(words)
     for i in range(len(words)):
@@ -38,4 +39,4 @@ def extract_diseases(text):
     return list
 
 
-print(extract_diseases("عندي برد و كحه"))
+print(extract_diseases("عندي"))
