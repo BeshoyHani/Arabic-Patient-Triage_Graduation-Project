@@ -2,7 +2,7 @@
 #from fuzzywuzzy import process
 import textdistance
 import csv
-
+import preprocessing
 
 def get_diseases(path):
     list = []
@@ -13,6 +13,8 @@ def get_diseases(path):
             for i in range(1, len(row)) :
                 if row[i] != '':
                     list.append(row[i])
+
+    list = preprocessing.preprocess(list)
     return list
 
 all_diseases = get_diseases('GP_ArabicDataSet.csv')
@@ -27,6 +29,8 @@ def extract_diseases(text):
     list = []
 
     words = text.split()
+    words=preprocessing.preprocess(words)
+
     print(words)
     for i in range(len(words)):
         list.append(getHighestSimilarity(words[i]))
@@ -34,4 +38,4 @@ def extract_diseases(text):
     return list
 
 
-print(extract_diseases("عندى برد و كحه"))
+print(extract_diseases("عندي برد و كحه"))
