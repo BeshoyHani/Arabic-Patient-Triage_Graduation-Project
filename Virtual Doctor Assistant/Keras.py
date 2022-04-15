@@ -1,8 +1,8 @@
 import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 import warnings
-warnings.filterwarnings('ignore')
 
+warnings.filterwarnings('ignore')
 
 train = pd.read_csv('kaggle/Training.csv')
 test = pd.read_csv('kaggle/Testing.csv')
@@ -14,7 +14,7 @@ print("Test Shape: ")
 print(test.shape)
 # preprocessing Step
 train.drop('Unnamed: 133', axis=1, inplace=True)
-print("Train shape after dropping unnecessary column: "+str(train.shape))
+print("Train shape after dropping unnecessary column: " + str(train.shape))
 # More info about the train data
 train.info()
 train.isna().sum()
@@ -55,17 +55,27 @@ early_stopping_monitor = EarlyStopping(patience=2, monitor='val_accuracy')
 model.fit(X_train, y_train_enc, batch_size=120, epochs=30, validation_split=0.3, callbacks=[early_stopping_monitor])
 model.evaluate(X_test, y_test_enc, steps=5)
 prediction = model.predict_classes(X_test)
-
+print(type(X_test))
+print(X_test)
 print(prediction)
+
+
+def testing(symptoms):
+    newTest = np.zeros((1, 132))
+    for symptom in symptoms:
+        print(symptom)
+        colIndex = X_train.columns.get_loc(symptom)
+        newTest[0][colIndex] = 1
+    print(y_train_enc.columns.values[(model.predict_classes(newTest))])
+
+
+listt = ["itching", "skin_rash", "nodal_skin_eruptions", "dischromic _patches"]
+testing(listt)
+# How we choose our Parameters
+"""
 
 Xnew = train.drop('prognosis', axis=1)
 ynew = train['prognosis']
-
-print(ynew)
-
-
-# How we choose our Parameters
-"""
 
 from tensorflow.keras.optimizers import Adam
 
