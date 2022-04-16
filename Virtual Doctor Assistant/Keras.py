@@ -76,6 +76,7 @@ def testing(symptoms):
     return y_train_enc.columns.values[classes_new_test]
 
 
+
 #listt = [ "watering_from_eyes", "chills","continuous_sneezing","continuous_feel_of_urine"]
 #print(testing(listt))
 # How we choose our Parameters
