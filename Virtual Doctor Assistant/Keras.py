@@ -70,7 +70,7 @@ def testing(symptoms):
         colIndex = X_train.columns.get_loc(symptom)
         newTest[0][colIndex] = 1
     predict_new_test = model.predict(newTest)
-    classes_new_test = np.argmax(predict_x, axis=1)
+    classes_new_test = np.argmax(predict_new_test, axis=1)
     print(y_train_enc.columns.values[classes_new_test])
 
 
