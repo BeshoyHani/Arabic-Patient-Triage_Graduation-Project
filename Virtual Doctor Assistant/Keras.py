@@ -2,6 +2,8 @@ import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 import warnings
 
+from keras.optimizer_v2.adam import Adam
+
 warnings.filterwarnings('ignore')
 
 train = pd.read_csv('kaggle/Training.csv')
@@ -54,7 +56,8 @@ model.compile('adam', loss='categorical_crossentropy', metrics=['accuracy'])
 early_stopping_monitor = EarlyStopping(patience=2, monitor='val_accuracy')
 model.fit(X_train, y_train_enc, batch_size=120, epochs=30, validation_split=0.3, callbacks=[early_stopping_monitor])
 model.evaluate(X_test, y_test_enc, steps=5)
-prediction = model.predict_classes(X_test)
+predict_x = model.predict(X_test)
+prediction = np.argmax(predict_x, axis=1)
 print(type(X_test))
 print(X_test)
 print(prediction)
@@ -66,7 +69,9 @@ def testing(symptoms):
         print(symptom)
         colIndex = X_train.columns.get_loc(symptom)
         newTest[0][colIndex] = 1
-    print(y_train_enc.columns.values[(model.predict_classes(newTest))])
+    predict_new_test = model.predict(newTest)
+    classes_new_test = np.argmax(predict_x, axis=1)
+    print(y_train_enc.columns.values[classes_new_test])
 
 
 listt = ["itching", "skin_rash", "nodal_skin_eruptions", "dischromic _patches"]
@@ -77,7 +82,6 @@ testing(listt)
 Xnew = train.drop('prognosis', axis=1)
 ynew = train['prognosis']
 
-from tensorflow.keras.optimizers import Adam
 
 
 def create_model(learning_rate, activation):
