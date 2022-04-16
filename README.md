@@ -9,3 +9,5 @@
 Chosen Model Code:
 
 [Keras Sequential Model NN](https://www.kaggle.com/code/twaritshah/using-neural-networks-to-predict-disease-100-acc/notebook)
+
+[Dataset From New-York Hospital](https://people.dbmi.columbia.edu/~friedma/Projects/DiseaseSymptomKB/index.html)
