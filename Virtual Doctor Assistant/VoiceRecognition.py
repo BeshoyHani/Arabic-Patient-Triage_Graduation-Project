@@ -23,7 +23,7 @@ def getText(path):
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=48000,
         language_code="ar-EG",
-        # audio_channel_count=2,
+       # audio_channel_count=2,
     )
 
     operation = speech_client.long_running_recognize(config=config, audio=audio)
@@ -44,7 +44,16 @@ def getText(path):
 
 
 import KeyWordsExtraction
+import Keras
+
+def Arabic_Triage (text) :
+    text = KeyWordsExtraction.get_english_symptoms(text)
+    print(text)
+    res = Keras.testing(text)
+    return res
 
 txt = getText('doc.wav')
 print(txt)
-print(KeyWordsExtraction.extract_diseases(txt))
+print(Arabic_Triage(txt))
+
+

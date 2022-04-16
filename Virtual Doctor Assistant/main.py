@@ -2,9 +2,14 @@ import os
 from tkinter import *
 from PIL import Image, ImageTk
 import speech_recognition as sr
-import VoiceRecognition as VC
+#import VoiceRecognition as VC
+#import KeyWordsExtraction
+#import Keras
 
-
+def Arabic_Triage (text) :
+    text = KeyWordsExtraction.get_english_symptoms(text)
+   # res = Keras.testing(text)
+    return ""
 class Main:
     def __init__(self):
         self.window = Tk()
@@ -13,7 +18,7 @@ class Main:
         self.window.eval('tk::PlaceWindow . center')
 
         # Load Icon for record button
-        self.file = './assets/images/mic2.ico'
+        self.file = 'assets/images/mic2.ico'
         self.image = Image.open(self.file)
         self.mic_icon = ImageTk.PhotoImage(self.image.resize((100, 100)))
 
@@ -43,7 +48,8 @@ class Main:
             voice_recognizer.adjust_for_ambient_noise(source)
             audio = voice_recognizer.listen(source)
 
-        print(voice_recognizer.recognize_google(audio, language="ar-EG"))
+        text = print(voice_recognizer.recognize_google(audio, language="ar-EG"))
+        print(Arabic_Triage(text))
         # print(VC.getText(audio))
 
         # Update Record Button Label

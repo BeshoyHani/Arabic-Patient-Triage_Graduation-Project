@@ -1,5 +1,5 @@
 from fuzzywuzzy import process
-import textdistance
+#import textdistance
 import csv
 import preprocessing
 
@@ -52,7 +52,6 @@ def getHighestSimilarity(word):
     #return sim[idx], all_symptoms[idx]
     highest = process.extractOne(word,all_symptoms)
     return highest
-# def calc_Highest_similarity (symptom , text) :
 
 
 def get_arabic_symptoms(text):
@@ -61,16 +60,12 @@ def get_arabic_symptoms(text):
     words = text.split()
     words = preprocessing.preprocess(words)
     words = merge_symptoms(words, 3)
-
     print(words)
     for i in range(len(words)):
         sim = getHighestSimilarity(words[i])
-        if sim[1] > 90:
+        if sim[1] > 90 and sim[0] not in list:
+            print(sim ,words[i])
             list.append(sim[0])
 
     return list
-
-
-#print(textdistance.Jaccard(qval=1).normalized_similarity("كحة", "حكة"))
-s = get_english_symptoms("طفح جلدى")
 

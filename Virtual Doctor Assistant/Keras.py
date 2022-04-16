@@ -10,17 +10,17 @@ train = pd.read_csv('kaggle/Training.csv')
 test = pd.read_csv('kaggle/Testing.csv')
 
 # inspecting data
-print("Train Shape: ")
-print(train.shape)
-print("Test Shape: ")
-print(test.shape)
+# print("Train Shape: ")
+# print(train.shape)
+# print("Test Shape: ")
+# print(test.shape)
 # preprocessing Step
 train.drop('Unnamed: 133', axis=1, inplace=True)
 print("Train shape after dropping unnecessary column: " + str(train.shape))
 # More info about the train data
-train.info()
-train.isna().sum()
-train.nunique()
+# train.info()
+# train.isna().sum()
+# train.nunique()
 
 # Dropping thr prognosis column from the features
 X_train = train.drop('prognosis', axis=1)
@@ -32,7 +32,7 @@ y_test = np.array(test['prognosis'])
 
 # Making a one hot encoding for the output target "Prognosis" Test and Training
 y_train_enc = pd.get_dummies(y_train)
-print(y_train_enc)
+#print(y_train_enc)
 y_test_enc = pd.get_dummies(y_test)
 
 from keras.layers import Dense
@@ -51,33 +51,35 @@ model.add(Dense(16, activation='relu'))
 model.add(Dense(y_train_enc.shape[1], activation='softmax'))
 
 # Printing a summary of the model
-print(model.summary())
+#print(model.summary())
 model.compile('adam', loss='categorical_crossentropy', metrics=['accuracy'])
 early_stopping_monitor = EarlyStopping(patience=2, monitor='val_accuracy')
-model.fit(X_train, y_train_enc, batch_size=120, epochs=30, validation_split=0.3, callbacks=[early_stopping_monitor])
+model.fit(X_train, y_train_enc, batch_size=120, epochs=30, validation_split=0.3, callbacks=[early_stopping_monitor] , verbose=0)
 model.evaluate(X_test, y_test_enc, steps=5)
 predict_x = model.predict(X_test)
 prediction = np.argmax(predict_x, axis=1)
-print(type(X_test))
-print(X_test)
-print(prediction)
+#print(type(X_test))
+#print(X_test)
+#print(prediction)
 
 
 def testing(symptoms):
     newTest = np.zeros((1, 132))
     for symptom in symptoms:
-        print(symptom)
-        colIndex = X_train.columns.get_loc(symptom)
+        # print(symptom)
+        colIndex = X_test.columns.get_loc(symptom)
+        print(symptom , colIndex)
         newTest[0][colIndex] = 1
     predict_new_test = model.predict(newTest)
-    classes_new_test = np.argmax(predict_x, axis=1)
-    print(y_train_enc.columns.values[classes_new_test])
+    print(predict_new_test)
+    classes_new_test = np.argmax(predict_new_test, axis=1)
+    return y_train_enc.columns.values[classes_new_test]
 
 
-listt = ["itching", "skin_rash", "nodal_skin_eruptions", "dischromic _patches"]
-testing(listt)
+#listt = [ "watering_from_eyes", "chills","continuous_sneezing","continuous_feel_of_urine"]
+#print(testing(listt))
 # How we choose our Parameters
-"""
+
 """
 Xnew = train.drop('prognosis', axis=1)
 ynew = train['prognosis']
@@ -112,5 +114,5 @@ ytestnew = test['prognosis']
 random_search.best_estimator_.score(Xtestnew, ytestnew)
 pred = random_search.best_estimator_.predict(X_test)
 print(pred)
-"""
+
 """
