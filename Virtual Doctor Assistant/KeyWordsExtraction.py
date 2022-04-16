@@ -4,6 +4,9 @@ import csv
 import preprocessing
 
 
+arabic_to_english = {}
+
+
 def get_all_symptoms(path):
     list = []
     with open(path, 'r', encoding='utf8') as rf:
@@ -12,8 +15,21 @@ def get_all_symptoms(path):
         for row in reader:
             for i in range(1, len(row)):
                 if row[i] != '':
-                    list.append(row[i])
+                    sym = preprocessing.preprocess([row[i]])[0]
+                    list.append(sym)
+                    arabic_to_english[sym] = row[0].replace(' ', '_')
     return list
+
+
+all_symptoms = get_all_symptoms('GP_ArabicDataSet.csv')
+
+
+def get_english_symptoms(text):
+    testcase = []
+    symptoms = get_arabic_symptoms(text)
+    for x in symptoms:
+        testcase.append(arabic_to_english[x])
+    return testcase
 
 
 def merge_symptoms(words, length):
@@ -30,10 +46,6 @@ def merge_symptoms(words, length):
     return List
 
 
-all_symptoms = get_all_symptoms('GP_ArabicDataSet.csv')
-all_symptoms = preprocessing.preprocess(all_symptoms)
-
-
 def getHighestSimilarity(word):
     #sim = [(textdistance.Jaccard().normalized_similarity(candidate, word)) for candidate in all_symptoms]
     #idx = sim.index(max(sim))
@@ -43,7 +55,7 @@ def getHighestSimilarity(word):
 # def calc_Highest_similarity (symptom , text) :
 
 
-def extract_diseases(text):
+def get_arabic_symptoms(text):
     list = []
 
     words = text.split()
@@ -54,12 +66,11 @@ def extract_diseases(text):
     for i in range(len(words)):
         sim = getHighestSimilarity(words[i])
         if sim[1] > 90:
-            list.append(sim)
+            list.append(sim[0])
 
     return list
 
 
 #print(textdistance.Jaccard(qval=1).normalized_similarity("كحة", "حكة"))
-print(extract_diseases("جلدى طفح"))
-print(extract_diseases("طفح جلدى"))
+s = get_english_symptoms("طفح جلدى")
 
