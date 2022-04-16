@@ -73,7 +73,7 @@ listt = ["itching", "skin_rash", "nodal_skin_eruptions", "dischromic _patches"]
 testing(listt)
 # How we choose our Parameters
 """
-
+"""
 Xnew = train.drop('prognosis', axis=1)
 ynew = train['prognosis']
 
@@ -108,4 +108,5 @@ ytestnew = test['prognosis']
 random_search.best_estimator_.score(Xtestnew, ytestnew)
 pred = random_search.best_estimator_.predict(X_test)
 print(pred)
+"""
 """
