@@ -2,7 +2,8 @@ import numpy as np  # linear algebra
 import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 import warnings
 
-from keras.optimizer_v2.adam import Adam
+
+from tensorflow.keras.optimizers import Adam
 
 warnings.filterwarnings('ignore')
 
