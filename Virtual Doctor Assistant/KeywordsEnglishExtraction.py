@@ -7,49 +7,39 @@ import spacy
 from nltk.stem import WordNetLemmatizer
 # nltk.download('wordnet')
 # nltk.download('omw-1.4')
-nlseg = NewLineSegmenter()
 
-lemmatizer = WordNetLemmatizer()
-warnings.filterwarnings("ignore", message=r"\[W008\]", category=UserWarning)
-# Loading spaCy large dictionary
-nlp = spacy.load('en_core_web_lg')
-# nlp.add_pipe(nlseg.set_sent_starts, name='sentence_segmenter', before='parser')
-# Taking input from user
-print("Type a symptom: ")
-words = input()
-# Turning it into tokens
-# tokens = nlp(words)
-# loading Symptoms text file
-with open('Symptoms.txt') as f:
-	Symptoms_file = f.read().splitlines()
 
-# print(Symptoms_file)
-Output = []
-word = nlp(words)
-split_input = words.split(' ')
+class EnglishKeywordsExtraction:
+	def __init__(self):
+		# Loading spaCy large dictionary
+		self.nlp = spacy.load('en_core_web_lg')
 
-set_of_symptoms = set()
-for i in range(len(split_input)):
-	text = ""
-	text = text + split_input[i]
-	word1 = nlp(text)
-	word2 = nlp(split_input[i])
-	for symptom in Symptoms_file:
-		symptom = nlp(symptom)
-		similarity1 = word1.similarity(symptom)
-		similarity2 = word2.similarity(symptom)
-		if similarity1 > 0.7:
-			set_of_symptoms.add(str(symptom))
-		elif similarity2 > 1.0:
-			set_of_symptoms.add(str(symptom))
+		# loading Symptoms text file
+		with open('Symptoms.txt') as f:
+			self.Symptoms_file = f.read().splitlines()
 
-print(set_of_symptoms)
+	def get_list_of_symptoms(self, text):
+		split_input = text.split(' ')
+		split_input = [word for word in split_input if word!= "pain"]
+		set_of_symptoms = set()
+		for i in range(len(split_input)):
+			text = ""
+			text = text + split_input[i]
+			word1 = self.nlp(text)
+			word2 = self.nlp(split_input[i])
+			for symptom in self.Symptoms_file:
+				symptom = self.nlp(symptom)
+				similarity1 = word1.similarity(symptom)
+				similarity2 = word2.similarity(symptom) if split_input[i] != "pain" else 0
+				if similarity1 > 0.75:
+					set_of_symptoms.add(str(symptom))
+				elif similarity2 > 0.8:
+					set_of_symptoms.add(str(symptom))
+					print(split_input[i], similarity2)
 
-#
-# for symptom in Symptoms_file:
-# 	symptom = nlp(symptom)
-# 	if word.similarity(symptom) > 0.7:
-# 		print(str(word)+ " is similar with "+ str(symptom))
-# 		print("Similarity:", word.similarity(symptom))
-# 		Output.append(str(symptom))
-print(Output)
+		print(set_of_symptoms)
+		result = [symptom for symptom in set_of_symptoms]
+		return result
+
+# key_word = EnglishKeywordsExtraction()
+# key_word.get_list_of_symptoms("I have belly pain and itching and itchy and dog")

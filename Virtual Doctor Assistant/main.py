@@ -2,22 +2,21 @@ import os
 from threading import Thread
 from tkinter import *
 from tkinter.ttk import Combobox
-
 from PIL import Image, ImageTk
 import speech_recognition as sr
-#import VoiceRecognition as VC
-#import Keras
-import  KeyWordsExtraction
+import KeyWordsExtraction
+from KeywordsEnglishExtraction import EnglishKeywordsExtraction
 import Descison_Tree
-import json
-import pandas as pd
 import time
+from googletrans import Translator
+from gtts import gTTS
+from playsound import playsound
+import pyttsx3
+
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'idyllic-striker-341412-40c520a7335a.json'
 
-def Arabic_Triage (text) :
-    text = KeyWordsExtraction.get_english_symptoms(text)
-    return Descison_Tree.testing(text)
+
 class Main:
     def __init__(self):
         self.window = Tk()
@@ -75,13 +74,15 @@ class Main:
         def record_audio():
             if self.selected_language.get() != "English":
                 text = self.convert_voice_to_text("ar-EG")
-                Diagnosis = Arabic_Triage(text);
+                Diagnosis = self.Arabic_Triage(text)
                 print("Triage\n", Diagnosis)
+                translated_text = self.Translate_to_Arabic(Diagnosis)
+                self.play_sound("ar", "يجب عليك التوجه إلىَ عيادة " + translated_text)
             else:
                 text = self.convert_voice_to_text("en-US")
+                Diagnosis = self.English_Triage(text)
+                self.play_sound("en", Diagnosis)
                 print(text)
-
-
 
             # Update Record Button Label
             self.btn_lbl.set("Click to Record")
@@ -118,5 +119,24 @@ class Main:
 
             text = voice_recognizer.recognize_google_cloud(audio, language=lang, credentials_json=credentials)
             return text
+
+    def Arabic_Triage(self, text):
+        text = KeyWordsExtraction.get_english_symptoms(text)
+        return Descison_Tree.testing(text)
+
+    def English_Triage(self, text):
+        KE = EnglishKeywordsExtraction()
+        text = KE.get_list_of_symptoms(text)
+        return Descison_Tree.testing(text)
+
+    def Translate_to_Arabic(self, text):
+        translator = Translator()
+        text = translator.translate(text, dest="ar", src="en")
+        return text.text
+
+    def play_sound(self, lang, text):
+        obj = gTTS(text=text, lang=lang, slow=False)
+        obj.save("voice.mp3")
+        playsound("voice.mp3")
 
 main = Main()
