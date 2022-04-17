@@ -70,33 +70,21 @@ class Main:
         # Update the Record Button Label
         self.btn_lbl.set("Recording...")
         self.window.update()
+        self.start_counter = 0
 
-        # Record Voice
-        mic = sr.Microphone(device_index=1)
-        voice_recognizer = sr.Recognizer()
-
-        start_counter = 0
         def record_audio():
-            with mic as source:
-                print("Say Hi")
-                voice_recognizer.adjust_for_ambient_noise(source)
-                audio = voice_recognizer.listen(source)
-                nonlocal start_counter
-                start_counter = 1
-                with open('idyllic-striker-341412-40c520a7335a.json', 'r') as data_file:
-                    credentials = data_file.read()
-
-                text = voice_recognizer.recognize_google_cloud(audio, language="ar-EG", credentials_json=credentials)
-                print("Test\n", text)
+            if self.selected_language.get() != "English":
+                text = self.convert_voice_to_text("ar-EG")
                 Diagnosis = Arabic_Triage(text);
                 print("Triage\n", Diagnosis)
+            else:
+                text = self.convert_voice_to_text("en-US")
+                print(text)
 
-                # Update Record Button Label
-                self.btn_lbl.set("Click to Record")
 
-                # if self.selected_language.get() == "English":
-                # else:
-                #
+
+            # Update Record Button Label
+            self.btn_lbl.set("Click to Record")
 
         def update_counter():
             for i in range(61):
@@ -105,7 +93,7 @@ class Main:
                 if i == 60:
                     self.Minute.set("01")
                 time.sleep(1)
-                if start_counter:
+                if self.start_counter:
                     break
 
         t1 = Thread(target=record_audio)
@@ -116,5 +104,19 @@ class Main:
         print(self.selected_language.get())
         # print(VC.getText(audio))
 
+    def convert_voice_to_text(self, lang):
+        # Record Voice
+        mic = sr.Microphone(device_index=1)
+        voice_recognizer = sr.Recognizer()
+        with mic as source:
+            print("Say Hi")
+            voice_recognizer.adjust_for_ambient_noise(source)
+            audio = voice_recognizer.listen(source)
+            self.start_counter = 1
+            with open('idyllic-striker-341412-40c520a7335a.json', 'r') as data_file:
+                credentials = data_file.read()
+
+            text = voice_recognizer.recognize_google_cloud(audio, language=lang, credentials_json=credentials)
+            return text
 
 main = Main()
