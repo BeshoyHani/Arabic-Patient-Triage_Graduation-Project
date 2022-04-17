@@ -80,9 +80,10 @@ class Main:
             else:
                 text = self.convert_voice_to_text("en-US")
                 Diagnosis = self.English_Triage(text)
-                self.play_sound("en", Diagnosis)
+                self.play_sound("en", "You Should go to the" + Diagnosis + " clinic")
                 print(text)
 
+            self.start_counter = 1
             # Update Record Button Label
             self.btn_lbl.set("Click to Record")
 
@@ -134,8 +135,11 @@ class Main:
         return text.text
 
     def play_sound(self, lang, text):
+        text = ''.join(text)
+        print(text)
         obj = gTTS(text=text, lang=lang, slow=False)
         obj.save("voice.mp3")
         playsound("voice.mp3")
+
 
 main = Main()
