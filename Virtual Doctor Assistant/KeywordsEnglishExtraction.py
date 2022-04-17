@@ -1,8 +1,6 @@
 # importing spaCy
 import nltk
-from seg.newline.segmenter import NewLineSegmenter
 import re
-import warnings
 import spacy
 from nltk.stem import WordNetLemmatizer
 # nltk.download('wordnet')
@@ -32,9 +30,9 @@ class EnglishKeywordsExtraction:
 				similarity1 = word1.similarity(symptom)
 				similarity2 = word2.similarity(symptom) if split_input[i] != "pain" else 0
 				if similarity1 > 0.75:
-					set_of_symptoms.add(str(symptom))
+					set_of_symptoms.add(str(symptom).replace(' ','_'))
 				elif similarity2 > 0.8:
-					set_of_symptoms.add(str(symptom))
+					set_of_symptoms.add(str(symptom).replace(' ','_'))
 					print(split_input[i], similarity2)
 
 		print(set_of_symptoms)

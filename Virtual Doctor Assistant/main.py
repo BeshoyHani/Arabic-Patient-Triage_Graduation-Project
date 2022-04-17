@@ -11,7 +11,6 @@ import time
 from googletrans import Translator
 from gtts import gTTS
 from playsound import playsound
-import pyttsx3
 
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'idyllic-striker-341412-40c520a7335a.json'
