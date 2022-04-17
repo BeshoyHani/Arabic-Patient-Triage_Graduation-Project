@@ -7,7 +7,7 @@ df_test = pd.read_csv("kaggle/Testing.csv")
 
 df.shape
 
-df.drop('Unnamed: 133', axis=1, inplace=True)
+#df.drop('Unnamed: 133', axis=1, inplace=True)
 df.columns
 
 # """ prognosis means our labels in data """

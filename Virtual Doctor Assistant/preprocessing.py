@@ -19,9 +19,13 @@ def stemming(word_tokens):
 
 
 def generalize_similar_chars(word):
+    word = word.replace(' و', ' ')
     word = word.replace('ة', 'ه')
     word = word.replace('ى', 'ي')
     word = word.replace('اء', 'ا')
+
+    if word[0] == 'و':
+        word = word[1:]
     return word
 
 

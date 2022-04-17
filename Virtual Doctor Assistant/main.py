@@ -6,9 +6,9 @@ from tkinter.ttk import Combobox
 from PIL import Image, ImageTk
 import speech_recognition as sr
 #import VoiceRecognition as VC
-#import KeyWordsExtraction
 #import Keras
-import KeyWordsExtraction
+import  KeyWordsExtraction
+import Descison_Tree
 import json
 import pandas as pd
 import time
@@ -16,9 +16,8 @@ import time
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'idyllic-striker-341412-40c520a7335a.json'
 
 def Arabic_Triage (text) :
-    text = KeyWordsExtraction.get_arabic_symptoms(text)
-   # res = Keras.testing(text)
-    return ""
+    text = KeyWordsExtraction.get_english_symptoms(text)
+    return Descison_Tree.testing(text)
 class Main:
     def __init__(self):
         self.window = Tk()
@@ -88,7 +87,9 @@ class Main:
                     credentials = data_file.read()
 
                 text = voice_recognizer.recognize_google_cloud(audio, language="ar-EG", credentials_json=credentials)
-                print(Arabic_Triage(text))
+                print("Test\n", text)
+                Diagnosis = Arabic_Triage(text);
+                print("Triage\n", Diagnosis)
 
                 # Update Record Button Label
                 self.btn_lbl.set("Click to Record")

@@ -28,7 +28,8 @@ def get_english_symptoms(text):
     testcase = []
     symptoms = get_arabic_symptoms(text)
     for x in symptoms:
-        testcase.append(arabic_to_english[x])
+        if arabic_to_english[x] not in testcase :
+            testcase.append(arabic_to_english[x])
     return testcase
 
 
@@ -60,11 +61,12 @@ def get_arabic_symptoms(text):
     words = text.split()
     words = preprocessing.preprocess(words)
     words = merge_symptoms(words, 3)
-    print(words)
+    #print(words)
     for i in range(len(words)):
         sim = getHighestSimilarity(words[i])
+        print(words[i] , sim)
         if sim[1] > 90 and sim[0] not in list:
-            print(sim ,words[i])
+            #print(sim ,words[i])
             list.append(sim[0])
 
     return list
