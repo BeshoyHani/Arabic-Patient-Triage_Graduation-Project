@@ -2,6 +2,8 @@ import os
 from threading import Thread
 from tkinter import *
 from tkinter.ttk import Combobox
+
+import pandas as pd
 from PIL import Image, ImageTk
 import speech_recognition as sr
 import KeyWordsExtraction
@@ -18,6 +20,12 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'idyllic-striker-341412-40c520a73
 
 class Main:
     def __init__(self):
+
+        prognosis= pd.read_csv("prognosis.csv")
+        self.clinics = {}
+        for index, row in prognosis.iterrows():
+            self.clinics[row[1]] = row[2]
+
         self.window = Tk()
         self.window.title("Patient Triage")
         self.window.geometry("300x400")
@@ -75,12 +83,15 @@ class Main:
                 text = self.convert_voice_to_text("ar-EG")
                 Diagnosis = self.Arabic_Triage(text)
                 print("Triage\n", Diagnosis)
-                translated_text = self.Translate_to_Arabic(Diagnosis)
+                clinic= self.clinics.get(''.join(Diagnosis))
+                print("clinic ", clinic)
+                translated_text = self.Translate_to_Arabic(clinic)
                 self.play_sound("ar", "يجب عليك التوجه إلىَ عيادة " + translated_text)
             else:
                 text = self.convert_voice_to_text("en-US")
                 Diagnosis = self.English_Triage(text)
-                self.play_sound("en", "You Should go to the" + Diagnosis + " clinic")
+                clinic = self.clinics.get(''.join(Diagnosis))
+                self.play_sound("en", "You Should go to the " + Diagnosis + " clinic")
                 print(text)
 
             self.start_counter = 1
@@ -140,6 +151,5 @@ class Main:
         obj = gTTS(text=text, lang=lang, slow=False)
         obj.save("voice.mp3")
         playsound("voice.mp3")
-
 
 main = Main()
