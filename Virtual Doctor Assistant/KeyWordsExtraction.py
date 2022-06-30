@@ -21,7 +21,7 @@ def get_all_symptoms(path):
     return list
 
 
-all_symptoms = get_all_symptoms('GP_ArabicDataSet.csv')
+all_symptoms = get_all_symptoms('kaggle/GP_ArabicDataSet.csv')
 
 
 def get_english_symptoms(text):

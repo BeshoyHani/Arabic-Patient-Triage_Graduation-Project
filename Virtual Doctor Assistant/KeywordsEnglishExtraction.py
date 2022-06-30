@@ -13,7 +13,7 @@ class EnglishKeywordsExtraction:
 		self.nlp = spacy.load('en_core_web_lg')
 
 		# loading Symptoms text file
-		with open('Symptoms.txt') as f:
+		with open('symptoms/Symptoms.txt') as f:
 			self.Symptoms_file = f.read().splitlines()
 
 	def get_list_of_symptoms(self, text):
