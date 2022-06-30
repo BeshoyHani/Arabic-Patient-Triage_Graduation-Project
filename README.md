@@ -1,5 +1,16 @@
 # GP
+`Arabic Patient Triage` is a system for triaging patients in both arabic or english languages
 
+
+## Installation Guide:
+
+1)	Download The project from this [Link](https://github.com/BeshoyHani/GP) or from the flash drive provided with the documentation.
+2)	Download and install pycharm or any python IDE and open the project from it.
+3)	Install all the project dependencies and requirements through inside “Requirements.txt” file.
+4)	Run The program and follow the instructions.
+
+
+## References
 [Dataset With code python](https://www.kaggle.com/kaushil268/disease-prediction-using-machine-learning)
 
 [Geeks for geeks disease predictions](https://www.geeksforgeeks.org/disease-prediction-using-machine-learning/) 
