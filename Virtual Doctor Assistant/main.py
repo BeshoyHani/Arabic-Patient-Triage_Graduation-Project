@@ -54,7 +54,7 @@ class Main:
     def start_triage(self):
         # Update the Record Button Label
 
-        if self.selected_language != "English":
+        if self.selected_language != "en-US":
             self.play_sound(self.selected_language[:2], self.arabic_questions[3])
             text = self.convert_voice_to_text("ar-EG")
             arabic_symptoms, Diagnosis = self.Arabic_Triage(text)
