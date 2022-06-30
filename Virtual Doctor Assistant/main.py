@@ -1,16 +1,9 @@
 import os
-import tkinter.ttk
-from threading import Thread
-from tkinter import *
-from tkinter.ttk import Combobox
-
 import pandas as pd
-from PIL import Image, ImageTk
 import speech_recognition as sr
 import KeyWordsExtraction
 from KeywordsEnglishExtraction import EnglishKeywordsExtraction
 import Descison_Tree
-import time
 from googletrans import Translator
 from gtts import gTTS
 from playsound import playsound
@@ -31,19 +24,38 @@ class Main:
         self.patient_name=""
         self.patient_age = 0
         self.patient_gender = "male"
+        self.arabic_questions = ['ذكر ولا أنثي', 'اسمك ايه؟' , 'عندك كام سنة؟', 'ايه الاعراض اللي عندك؟']
+        self.english_questions = ['Male or Female?', "What is your name?", "How old are you?", 'What are the symptoms do you feel?']
 
         # Language
-        self.selected_language = 'عربي'
+        self.selected_language = 'ar-EG'
 
-    def set_patient_info(self, data):
-        self.patient_name = data[0]
-        self.patient_age = data[1]
-        self.patient_gender = data[2]
+    def set_langage(self, lang):
+        self.selected_language = lang
+    def set_patient_info(self):
+        questions = self.arabic_questions if self.selected_language == 'ar-EG' else self.english_questions
+
+        # Gender
+        self.play_sound(self.selected_language[:2], questions[0])
+        self.patient_gender = self.convert_voice_to_text(self.selected_language)
+
+        # Name
+        self.play_sound(self.selected_language[:2], questions[1])
+        self.patient_name = self.convert_voice_to_text(self.selected_language)
+
+        # Age
+        self.play_sound(self.selected_language[:2], questions[2])
+        self.patient_age = self.convert_voice_to_text(self.selected_language)
+
+        print(self.patient_name)
+        print(self.patient_gender)
+        print(self.patient_age)
 
     def start_triage(self):
         # Update the Record Button Label
 
         if self.selected_language != "English":
+            self.play_sound(self.selected_language[:2], self.arabic_questions[3])
             text = self.convert_voice_to_text("ar-EG")
             Diagnosis = self.Arabic_Triage(text)
             print("Triage\n", Diagnosis)
@@ -52,15 +64,13 @@ class Main:
             translated_text = self.Translate_to_Arabic(clinic)
             self.play_sound("ar", "يجب عليك التوجه إلىَ عيادة " + translated_text)
         else:
+            self.play_sound(self.selected_language[:2], self.english_questions[3])
             text = self.convert_voice_to_text("en-US")
             Diagnosis = self.English_Triage(text)
             clinic = self.clinics.get(''.join(Diagnosis))
             self.play_sound("en", "You Should go to the " + clinic + " clinic")
             print(text)
 
-        # Update Record Button Label
-
-        print(self.selected_language.get())
         # print(VC.getText(audio))
 
     def convert_voice_to_text(self, lang):
@@ -97,6 +107,7 @@ class Main:
         obj = gTTS(text=text, lang=lang, slow=False)
         obj.save("voice.mp3")
         playsound("voice.mp3")
+        os.remove("voice.mp3")
 
 
 main = Main()
@@ -106,12 +117,13 @@ eel.init('web_interface')
 
 @eel.expose
 def triage():
+    main.set_patient_info()
     main.start_triage()
     eel.hide_voice_animation()()
 
 @eel.expose
-def set_patient_info():
-    eel.get_patient_info()(main.set_patient_info)
+def set_language():
+    eel.get_language()(main.set_langage)
 
 
 eel.start('index.html')
