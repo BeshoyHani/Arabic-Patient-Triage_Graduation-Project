@@ -8,7 +8,7 @@ from googletrans import Translator
 from gtts import gTTS
 from playsound import playsound
 import eel
-
+import csv
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'idyllic-striker-341412-40c520a7335a.json'
 
@@ -57,17 +57,20 @@ class Main:
         if self.selected_language != "English":
             self.play_sound(self.selected_language[:2], self.arabic_questions[3])
             text = self.convert_voice_to_text("ar-EG")
-            Diagnosis = self.Arabic_Triage(text)
+            arabic_symptoms, Diagnosis = self.Arabic_Triage(text)
             print("Triage\n", Diagnosis)
             clinic= self.clinics.get(''.join(Diagnosis))
             print("clinic ", clinic)
             translated_text = self.Translate_to_Arabic(clinic)
+
+            self.LoadToEMR("EMR_ar", self.patient_gender,self.patient_name,self.patient_age, arabic_symptoms, translated_text)
             self.play_sound("ar", "يجب عليك التوجه إلىَ عيادة " + translated_text)
         else:
             self.play_sound(self.selected_language[:2], self.english_questions[3])
             text = self.convert_voice_to_text("en-US")
-            Diagnosis = self.English_Triage(text)
+            english_symptoms, Diagnosis = self.English_Triage(text)
             clinic = self.clinics.get(''.join(Diagnosis))
+            self.LoadToEMR("EMR_en", self.patient_gender,self.patient_name,self.patient_age, english_symptoms, clinic)
             self.play_sound("en", "You Should go to the " + clinic + " clinic")
             print(text)
 
@@ -88,13 +91,18 @@ class Main:
             return text
 
     def Arabic_Triage(self, text):
-        text = KeyWordsExtraction.get_english_symptoms(text)
-        return Descison_Tree.testing(text)
+        arabic_symptoms, english_symptoms = KeyWordsExtraction.get_english_symptoms(text)
+        return arabic_symptoms, Descison_Tree.testing(english_symptoms)
+
+    def LoadToEMR(self, emr_name, gender, name, age, symptoms, clinic):
+        with open("./" + emr_name + ".csv", 'a', newline='', encoding='utf-8-sig') as file:
+            writer = csv.writer(file)
+            writer.writerow([gender, name, age, symptoms, clinic])
 
     def English_Triage(self, text):
         KE = EnglishKeywordsExtraction()
-        text = KE.get_list_of_symptoms(text)
-        return Descison_Tree.testing(text)
+        english_symptoms = KE.get_list_of_symptoms(text)
+        return english_symptoms, Descison_Tree.testing(english_symptoms)
 
     def Translate_to_Arabic(self, text):
         translator = Translator()

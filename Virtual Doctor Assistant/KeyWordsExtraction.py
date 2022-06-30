@@ -25,12 +25,12 @@ all_symptoms = get_all_symptoms('GP_ArabicDataSet.csv')
 
 
 def get_english_symptoms(text):
-    testcase = []
-    symptoms = get_arabic_symptoms(text)
-    for x in symptoms:
-        if arabic_to_english[x] not in testcase :
-            testcase.append(arabic_to_english[x])
-    return testcase
+    english_symptoms = []
+    arabic_symptoms = get_arabic_symptoms(text)
+    for x in arabic_symptoms:
+        if arabic_to_english[x] not in english_symptoms :
+            english_symptoms.append(arabic_to_english[x])
+    return arabic_symptoms, english_symptoms
 
 
 def merge_symptoms(words, length):
