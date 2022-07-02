@@ -24,7 +24,7 @@ class Main:
         self.__patient_name=""
         self.__patient_age = 0
         self.__patient_gender = "male"
-        self.arabic_questions = ['ذكر ولا أنثي', 'اسمك ايه؟' , 'عندك كام سنة؟', 'ايه الاعراض اللي عندك؟']
+        self.arabic_questions = ['ذَكَرْ ولّاَ أُنْثَى', 'اِسْمَكْ إيَهْ؟', 'عَنْدَكْ كَامْ سَنَة؟', 'إيَّهْ الأعْرَاضْ اِللي عَنْدَكْ؟']
         self.english_questions = ['Male or Female?', "What is your name?", "How old are you?", 'What are the symptoms do you feel?']
 
         # Language
@@ -68,7 +68,7 @@ class Main:
             translated_text = self.Translate_to_Arabic(clinic)
 
             self.LoadToEMR("EMR_ar", self.__patient_gender,self.__patient_name,self.__patient_age, arabic_symptoms, translated_text)
-            self.play_sound("ar", "يجب عليك التوجه إلىَ عيادة " + translated_text)
+            self.play_sound("ar", "يَجِبْ التَوَجّهْ إلَى عيادَةْ " + translated_text)
         else:
             self.play_sound(self.__selected_language[:2], self.english_questions[3])
             text = self.convert_voice_to_text("en-US")
@@ -135,7 +135,7 @@ def triage():
 
 @eel.expose
 def set_language():
-    eel.get_language()(main.set_langage)
+    eel.get_language()(main.set_language)
 
 
 eel.start('index.html')
